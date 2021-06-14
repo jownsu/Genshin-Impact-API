@@ -67,10 +67,10 @@ class Model{
         return $self;
     }
 
-    static function orderBy($table, $order = "ASC"){
+    static function orderBy($table, $order = "ASC", $tables = "*"){
         $self = new static;
         if(!isset(self::$sql)){
-            self::$sql = self::selectSQL() . " ORDER BY " . $table . " " . $order;
+            self::$sql = self::selectSQL($tables) . " ORDER BY " . $table . " " . $order;
         }else{
             self::$sql .= " ORDER BY " . $table . " " . $order;
         }

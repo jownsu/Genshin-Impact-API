@@ -2,18 +2,6 @@
 
     class Character extends Model{
 
-        static function character_names(){
-            $characters = self::all('name');
-
-            $char_names = array();
-    
-            foreach($characters as $character){
-                $char_names[] = $character->name;
-            }
-
-            return json_encode($char_names);
-        }
-
         static function fetch($name){
            $name = str_replace('-', ' ', $name);
            $character = self::where(["name = {$name}"])->get();

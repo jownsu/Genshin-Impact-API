@@ -2,18 +2,6 @@
 
     class Weapon extends Model{
 
-        static function get_weapon_names(){
-            $weapons = self::all('name');
-
-            $weap_names = array();
-    
-            foreach($weapons as $weapon){
-                $weap_names[] = $weapon->name;
-            }
-
-            return json_encode($weap_names);
-        }
-
         static function fetch($name){
             $name = str_replace('-', ' ', $name);
             $weapon = self::where(["name = {$name}"])->get();
