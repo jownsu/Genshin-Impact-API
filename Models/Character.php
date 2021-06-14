@@ -29,6 +29,7 @@
         }
 
         static function add($data){
+            if(empty($data) || empty($data->name)) return false;
             $character = new Character();
 
             $character->name            = $data->name ?? "";

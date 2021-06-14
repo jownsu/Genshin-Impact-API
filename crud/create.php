@@ -19,26 +19,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         foreach($files as $file){
             $data = json_decode(file_get_contents($file));
-            if($name = $type::add($data)){
-                $message[] = "{$type} " . $name . " added";
+
+            if(property_exists($data, "name") && !is_object($data->name)){
+
+                $message[] = ($name = $type::add($data)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
+                
             }else{
-                $message[] = "{$type} not added";
+                foreach($data as $key => $val){
+
+                    $message[] = ($name = $type::add($val)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
+                }
             }
         }
 
     }else{
         $data = json_decode(file_get_contents("php://input"));
 
-        if($name = $type::add($data)){
-            $message[] = "{$type} " . $name . " added";
-        }else{
-            $message[] = "{$type} not added";
-        }
+        $message[] = ($name = $type::add($data)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
     }
-
-
-
-
 }else{
     $message[] = "Not POST request";
 }

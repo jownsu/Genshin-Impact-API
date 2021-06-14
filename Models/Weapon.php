@@ -26,6 +26,8 @@
          }
  
          static function add($data){
+            if(empty($data) || empty($data->name)) return false;
+
              $weapon = new Weapon();
 
              foreach(array_keys(get_object_vars($weapon)) as $key){

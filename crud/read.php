@@ -8,7 +8,7 @@
     $name = $_GET['name'];
     $data = $type::fetch($name);
 
-    echo $data ?? json_encode(['message' => "No data found"]);
+    echo $data ? $data : json_encode(['message' => $name . " not found"]);
 
 
 
