@@ -27,6 +27,6 @@ header('Content-Type: application/json');
 
 
         }else{
-            $types = ["types" => ["artifacts", "characters" , "domains", "elements", "nations", "weapons"]];
+            $types = ["types" => ["characters", "weapons" , "artifacts", "consumables", "nations"]];
             echo json_encode($types);
         }

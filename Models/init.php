@@ -6,3 +6,4 @@
     require_once("Weapon.php");
     require_once("Artifact.php");
     require_once("Nation.php");
+    require_once("Consumable.php");

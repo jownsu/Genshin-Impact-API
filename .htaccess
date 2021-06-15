@@ -7,12 +7,13 @@ RewriteRule ^characters/*$ index.php?type=characters [NC,L]
 RewriteRule ^weapons/*$ index.php?type=weapons [NC,L]
 RewriteRule ^artifacts/*$ index.php?type=artifacts [NC,L]
 RewriteRule ^nations/*$ index.php?type=nations [NC,L]
+RewriteRule ^consumables/*$ index.php?type=consumables [NC,L]
 
-RewriteRule ^(characters|weapons|artifacts|nations)/create$ crud/create.php?type=$1 [NC,L]
-RewriteRule ^(characters|weapons|artifacts|nations)/update$ crud/update.php?type=$1 [NC,L]
-RewriteRule ^(characters|weapons|artifacts|nations)/delete$ crud/delete.php?type=$1 [NC,L]
+RewriteRule ^(characters|weapons|artifacts|nations|consumables)/create$ crud/create.php?type=$1 [NC,L]
+RewriteRule ^(characters|weapons|artifacts|nations|consumables)/update$ crud/update.php?type=$1 [NC,L]
+RewriteRule ^(characters|weapons|artifacts|nations|consumables)/delete$ crud/delete.php?type=$1 [NC,L]
 
-RewriteRule ^(characters|weapons|artifacts|nations)/([a-zA-Z-']+)$ crud/read.php?type=$1&name=$2 [NC,L]
+RewriteRule ^(characters|weapons|artifacts|nations|consumables)/([a-zA-Z-']+)$ crud/read.php?type=$1&name=$2 [NC,L]
 
 #redirect the link with .php extension
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
