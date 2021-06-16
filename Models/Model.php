@@ -132,13 +132,19 @@ class Model{
         // return self::$sql;
     }
 
+    public function get_single(){
+        $result = self::find_query(self::$sql, self::$bind);
+
+        return !empty($result) ? array_shift($result) : false;
+    }
+
     public function create(){
         global $db;
 
         $properties = $this->get_property_values();
 
         $sql = "INSERT INTO " . static::table() . " (". implode(", ", array_keys($properties)) .") ";
-        $sql .= "VALUES (:". implode(", :", array_keys($properties)) .")";
+        $sql .= "VALUES (:". implode(", :", array_keys($properties)) .") ";
 
         $db->query($sql);
 

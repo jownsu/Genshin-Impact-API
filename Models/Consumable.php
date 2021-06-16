@@ -4,11 +4,10 @@
 
         static function fetch($name){
             $name = str_replace('-', ' ', $name);
-            $consumable = self::where(["name = {$name}"])->get();
+            $consumable = self::where(["name = {$name}"])->get_single();
 
             if(empty($consumable)) return false;
 
-            $consumable = array_shift($consumable);
             unset($consumable->id);
             return json_encode($consumable);
          }

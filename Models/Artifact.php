@@ -4,11 +4,10 @@
 
         static function fetch($name){
             $name = str_replace('-', ' ', $name);
-            $artifact = self::where(["name = {$name}"])->get();
+            $artifact = self::where(["name = {$name}"])->get_single();
 
             if(empty($artifact)) return false;
 
-            $artifact = array_shift($artifact);
             unset($artifact->id);
             return json_encode($artifact);
          }

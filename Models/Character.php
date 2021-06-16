@@ -1,14 +1,12 @@
 <?php
-
     class Character extends Model{
-
+        use File;
         static function fetch($name){
            $name = str_replace('-', ' ', $name);
-           $character = self::where(["name = {$name}"])->get();
+           $character = self::where(["name = {$name}"])->get_single();
 
            if(empty($character)) return false;
 
-           $character = array_shift($character);
            $character->skillTalents   = json_decode($character->skillTalents);
            $character->passiveTalents = json_decode($character->passiveTalents);
            $character->constellations = json_decode($character->constellations);
