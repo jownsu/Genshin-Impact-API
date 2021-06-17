@@ -32,7 +32,7 @@
                 $weapon->$key = $input->$key;
             }
 
-            return $weapon->update() ? $weapon->name : false;
+            return $weapon->update() ? "Weapon $weapon->name updated" : false;
          }
 
          public function upload($file, $filename = "image"){

@@ -31,7 +31,7 @@
                 $artifact->$key = $input->$key;
             }
 
-            return $artifact->update() ? $artifact->name : false;
+            return $artifact->update() ? "Artifact $artifact->name updated" : false;
          }
 
     }

@@ -31,7 +31,7 @@
                 $consumable->$key = $input->$key;
             }
 
-            return $consumable->update() ? $consumable->name : false;
+            return $consumable->update() ? "Consumable $consumable->name updated" : false;
          }
 
     }

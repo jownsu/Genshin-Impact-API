@@ -15,19 +15,19 @@ class Model{
 
     /*****Pre-defined Select Query Methods********************/
 
-    static function all($tables = "*"){
+    public static function all($tables = "*"){
         $result = self::find_query(self::selectSQL($tables));
         return !empty($result) ? $result : false;
     }
 
-    static function find($id, $tables = "*"){
+    public static function find($id, $tables = "*"){
         $sql = self::selectSQL($tables) . " WHERE " . self::id() . " = :id LIMIT 1";
 
         $result = self::find_query($sql, [':id' => $id]);
         return !empty($result) ? array_shift($result) : false;
     }
 
-    static function where($sqlWhere = array(), $tables = "*"){
+    public static function where($sqlWhere = array(), $tables = "*"){
         $self = new static;
         $where = array();
 
@@ -52,7 +52,7 @@ class Model{
         return $self;
     }
 
-    static function orWhere($sqlWhere = array()){
+    public static function orWhere($sqlWhere = array()){
         $self = new static;
         $where = array();
 
@@ -72,7 +72,7 @@ class Model{
         return $self;
     }
 
-    static function orderBy($table, $order = "ASC", $tables = "*"){
+    public static function orderBy($table, $order = "ASC", $tables = "*"){
         $self = new static;
         if(!isset(self::$sql)){
             self::$sql = self::selectSQL($tables) . " ORDER BY " . $table . " " . $order;
@@ -83,7 +83,7 @@ class Model{
         return $self;
     }
 
-    static function paginate($items_per_page = 5){
+    public static function paginate($items_per_page = 5){
         $self = new static;
         $page = isset($_GET['page']) && $_GET['page'] >= 1 ? (int)$_GET['page'] : 1;
         $offset = (($page - 1) * $items_per_page);
@@ -104,7 +104,7 @@ class Model{
 
     /******Pre-defined Count Methods**************/
 
-    static function count(){
+    public static function count(){
         $self = new static;
 
         self::$sql .= self::countSQL();
@@ -112,7 +112,7 @@ class Model{
         return $self;
     }
 
-    static function count_all(){
+    public static function count_all(){
         $result = self::count_query(self::countSQL());
         return $result;
     }
@@ -132,6 +132,9 @@ class Model{
         }else{
             $result = self::find_query(self::$sql, self::$bind);
         }
+
+        self::$sql = null;
+        self::$bind = array();
         return !empty($result) ? $result : false;
 
         // return self::$sql;
@@ -139,6 +142,9 @@ class Model{
 
     public function get_single(){
         $result = self::find_query(self::$sql, self::$bind);
+        
+        self::$sql = null;
+        self::$bind = array();
 
         return !empty($result) ? array_shift($result) : false;
     }
@@ -195,7 +201,7 @@ class Model{
     /**************End of Methods***************/
 
     /********Static Properties*******************/
-    static function table(){
+    public static function table(){
         $calling_class = get_called_class();
         $default_table = strtolower($calling_class) . 's';
         
@@ -203,15 +209,15 @@ class Model{
         return $table;
     }
 
-    static function id(){
+    public static function id(){
         return isset(static::$primary_key) ? static::$primary_key : 'id';
     }
 
-    static function countSQL(){
+    public static function countSQL(){
         return "SELECT SQL_CALC_FOUND_ROWS * FROM " . self::table();
     }
 
-    static function selectSQL($selectTables = "*"){
+    public static function selectSQL($selectTables = "*"){
         return "SELECT " . $selectTables ." FROM " . self::table();
     }
 
@@ -219,7 +225,7 @@ class Model{
 
     /*********Custom Query**************************/
 
-    static function count_query($sql, $binds = array()){
+    public static function count_query($sql, $binds = array()){
         global $db;
 
         $db->query($sql);
@@ -237,7 +243,7 @@ class Model{
         return $result->fetchColumn(); 
     }
 
-    static function find_query($sql, $binds = array()){
+    public static function find_query($sql, $binds = array()){
         global $db;
 
         $db->query($sql);
@@ -263,7 +269,7 @@ class Model{
 
     /*******Instantation of Properties**************/
 
-    static function instantiate($record){
+    public static function instantiate($record){
         $calling_class = get_called_class();
         $obj = new $calling_class;
 

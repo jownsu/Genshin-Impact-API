@@ -1,7 +1,7 @@
 <?php
     class Character extends Model{
         use File;
-        static function fetch($name){
+        public static function fetch($name){
          //   $name = str_replace('-', ' ', $name);
            $name = str_replace('%20', ' ', $name);
            $character = self::where(["name = {$name}"])->get_single();
@@ -15,7 +15,7 @@
            return json_encode($character);
         }
 
-        static function add($data){
+        public static function add($data){
             if(empty($data) || empty($data->name)) return false;
             if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
             $character = new Character();
@@ -36,7 +36,7 @@
             return $character->create() ? "Character $character->name added" : false;
         }
 
-        static function edit($character, $input){
+         public static function edit($character, $input){
 
             $character->name            = $input->name ?? $character->name;
             $character->vision          = $input->vision ?? $character->vision;

@@ -31,7 +31,7 @@
                 $nation->$key = $input->$key;
             }
 
-            return $nation->update() ? $nation->name : false;
+            return $nation->update() ? "Nation $nation->name updated" : false;
          }
 
     }

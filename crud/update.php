@@ -21,8 +21,18 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT'){
         $data = $type::where(["name = $name"])->get_single();
 
         if(!empty($data)){
+            do {
+                if(isset($input->name)){
+                    if($type::where(["name = $input->name"])->get_single()){
+                        $message[] = "$input->name already exists";
+                        break;
+                    }
+                }
 
-            $message[] = ($response = $type::edit($data, $input)) ? $response : "$type $name not added";
+                $message[] = ($response = $type::edit($data, $input)) ? $response : "$type $name not updated";
+
+            } while (0);
+
 
         }else{
             $message[] = "$type $name not found";
