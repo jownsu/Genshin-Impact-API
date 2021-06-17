@@ -58,7 +58,7 @@
             return $path;
          }
 
-         public function upload_icon($file){
+         public function upload($file, $filename = "image"){
             //code here
             $path = "../images/characters/" . $this->name;
              if(!file_exists($path)){
@@ -67,30 +67,13 @@
 
              if($this->check_files($file)){
                // $this->rename_if_exists();
-               move_uploaded_file($file['tmp_name'], $path . DS . 'icon');
+               move_uploaded_file($file['tmp_name'], $path . DS . $filename);
                return true;
 
              }else{
                 return json_encode($this->errors);
              }
          }
-
-         public function upload_portrait($file){
-            //code here
-            $path = "../images/characters/" . $this->name;
-            if(!file_exists($path)){
-               mkdir($path);
-            }
-
-            if($this->check_files($file)){
-              // $this->rename_if_exists();
-              move_uploaded_file($file['tmp_name'], $path . DS . 'portrait');
-              return true;
-            }else{
-               return json_encode($this->errors);
-            }
-         }
-
     }
 
 ?>

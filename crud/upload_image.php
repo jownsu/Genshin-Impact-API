@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
    if($obj){
         if(isset($_FILES['icon']) && is_uploaded_file($_FILES['icon']['tmp_name'])){
             //code here
-            if($obj->upload_icon($_FILES['icon'])){
+            if($obj->upload($_FILES['icon'], 'icon')){
                 $message[] = 'Icon Uploaded';
             }else{
                 $message[] = $obj->errors;
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         if(isset($_FILES['portrait']) && is_uploaded_file($_FILES['portrait']['tmp_name'])){
             //code here
-            if($obj->upload_portrait($_FILES['portrait'])){
+            if($obj->upload($_FILES['portrait'], 'portrait')){
                 $message[] = 'Portrait Uploaded';
             }else{
                 $message[] = $obj->errors;
