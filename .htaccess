@@ -16,5 +16,7 @@ RewriteRule ^(characters|weapons|artifacts|nations|consumables)/delete$ crud/del
 RewriteRule ^(characters|weapons)/([a-zA-Z-']+)/(icon|portrait)$ image.php?type=$1&name=$2&img=$3 [NC,L]
 RewriteRule ^(characters|weapons|artifacts|nations|consumables)/([a-zA-Z-']+)/*$ crud/read.php?type=$1&name=$2 [NC,L]
 
+RewriteRule ^(characters|weapons)/([a-zA-Z-']+)/upload/*$ crud/upload_image.php?type=$1&name=$2 [NC,L]
+
 #redirect the link with .php extension
 RewriteRule ^([^\.]+)$ $1.php [NC,L]

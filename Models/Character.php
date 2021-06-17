@@ -52,6 +52,48 @@
             return $character->update() ? true : false;
          }
 
+        public function image_path(){
+            //code here
+            $path = IMAGES_ROOT . "characters" . DS;
+            return $path;
+         }
+
+         public function upload_icon($file){
+            //code here
+            $path = "../images/characters/" . $this->name;
+             if(!file_exists($path)){
+                mkdir($path);
+             }
+
+             if($this->check_files($file)){
+
+               // $this->rename_if_exists();
+               move_uploaded_file($file['tmp_name'], $path . DS . 'icon');
+               return true;
+
+             }else{
+                return json_encode($this->errors);
+             }
+         }
+
+         public function upload_portrait($file){
+            //code here
+            $path = "../images/characters/" . $this->name;
+            if(!file_exists($path)){
+               mkdir($path);
+            }
+
+            if($this->check_files($file)){
+
+              // $this->rename_if_exists();
+              move_uploaded_file($file['tmp_name'], $path . DS . 'portrait');
+              return true;
+
+            }else{
+               return json_encode($this->errors);
+            }
+         }
+
     }
 
 ?>

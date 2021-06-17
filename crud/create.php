@@ -31,12 +31,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
             }
         }
+    }
 
-    }else{
-        $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"));
 
+    if(isset($data)){
         $message[] = ($name = $type::add($data)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
     }
+
 }else{
     $message[] = "Not POST request";
 }

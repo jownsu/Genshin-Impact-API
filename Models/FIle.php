@@ -1,5 +1,9 @@
 <?php
 
+    define('DS', DIRECTORY_SEPARATOR);
+    define('SITE_ROOT', dirname(__DIR__, 1));
+    define('IMAGES_ROOT', dirname(__DIR__, 1) . DS . "images" . DS);
+
 trait File{
 
     protected $errors = array();
@@ -32,17 +36,21 @@ trait File{
         return true;
     }
 
-    static function rename_if_exists($path, $filename){
+    protected function rename_if_exists($path, $filename){
         if(file_exists($path . DS . $filename)){
-            $thumbnailCount = 1;
+            $count = 1;
             list($name, $extension) = explode('.', $filename);
             while(file_exists($path . DS . $filename)) {
-                $filename = $name . "(" . $thumbnailCount . ")" . '.' . $extension;    
-                $thumbnailCount++;
+                $filename = $name . "(" . $count . ")" . '.' . $extension;    
+                $count++;
             }
         }
 
         return $filename;
+    }
+
+    function get_errors(){
+        return $this->errors;
     }
 
 
