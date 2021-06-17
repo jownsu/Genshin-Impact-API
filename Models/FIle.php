@@ -33,6 +33,11 @@ trait File{
             return false;
         }
 
+        if(preg_match("/.exe$|.com$|.bat$|.zip$|.doc$|.txt$/i", $file['name'])){
+            $this->errors[] = "You cannot upload this type of file.";
+            return false;
+          }
+
         return true;
     }
 

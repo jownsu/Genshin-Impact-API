@@ -66,7 +66,6 @@
              }
 
              if($this->check_files($file)){
-
                // $this->rename_if_exists();
                move_uploaded_file($file['tmp_name'], $path . DS . 'icon');
                return true;
@@ -84,11 +83,9 @@
             }
 
             if($this->check_files($file)){
-
               // $this->rename_if_exists();
               move_uploaded_file($file['tmp_name'], $path . DS . 'portrait');
               return true;
-
             }else{
                return json_encode($this->errors);
             }
