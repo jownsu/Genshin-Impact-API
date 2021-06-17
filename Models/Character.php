@@ -36,18 +36,18 @@
 
         static function edit($character, $input){
 
-            $character->name            = $input->name ?? "";
-            $character->vision          = $input->vision ?? "";
-            $character->weapon          = $input->weapon ?? "";
-            $character->nation          = $input->nation ?? "";
-            $character->affiliation     = $input->affiliation ?? "";
-            $character->rarity          = $input->rarity ?? "";
-            $character->constellation   = $input->constellation ?? "";
-            $character->birthday        = $input->birthday ?? "";
-            $character->description     = $input->description ?? "";
-            $character->skillTalents    = json_encode($input->skillTalents ?? null);
-            $character->passiveTalents  = json_encode($input->passiveTalents ?? null);
-            $character->constellations  = json_encode($input->constellations ?? null);
+            $character->name            = $input->name ?? $character->name;
+            $character->vision          = $input->vision ?? $character->vision;
+            $character->weapon          = $input->weapon ?? $character->weapon;
+            $character->nation          = $input->nation ?? $character->nation;
+            $character->affiliation     = $input->affiliation ?? $character->affiliation;
+            $character->rarity          = $input->rarity ?? $character->rarity;
+            $character->constellation   = $input->constellation ?? $character->constellation;
+            $character->birthday        = $input->birthday ?? $character->birthday;
+            $character->description     = $input->description ?? $character->description;
+            $character->skillTalents    = json_encode($input->skillTalents ?? json_decode($character->skillTalents));
+            $character->passiveTalents  = json_encode($input->passiveTalents ?? json_decode($character->passiveTalents));
+            $character->constellations  = json_encode($input->constellations ?? json_decode($character->constellations));
 
             return $character->update() ? true : false;
          }
@@ -60,14 +60,20 @@
 
          public function upload($file, $filename = "image"){
             //code here
-            $path = "../images/characters/" . $this->name;
+            $path = "../images/characters/";
+            $name = strtolower(str_replace(' ', '-', $this->name));
+
              if(!file_exists($path)){
                 mkdir($path);
              }
 
+             if(!file_exists($path . $name)){
+                mkdir($path . $name);
+             }
+
              if($this->check_files($file)){
                // $this->rename_if_exists();
-               move_uploaded_file($file['tmp_name'], $path . DS . $filename);
+               move_uploaded_file($file['tmp_name'], $path . $name . DS . $filename);
                return true;
 
              }else{

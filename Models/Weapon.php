@@ -1,6 +1,7 @@
 <?php
 
     class Weapon extends Model{
+        use File;
 
         static function fetch($name){
             $name = str_replace('-', ' ', $name);
@@ -30,6 +31,29 @@
             }
 
             return $weapon->update() ? true : false;
+         }
+
+         public function upload($file, $filename = "image"){
+            //code here
+            $path = "../images/weapons/";
+            $name = strtolower(str_replace(' ', '-', $this->name));
+
+             if(!file_exists($path)){
+                mkdir($path);
+             }
+
+             if(!file_exists($path . $name)){
+                mkdir($path . $name);
+             }
+
+             if($this->check_files($file)){
+               // $this->rename_if_exists();
+               move_uploaded_file($file['tmp_name'], $path . $name . DS . $filename);
+               return true;
+
+             }else{
+                return json_encode($this->errors);
+             }
          }
 
 

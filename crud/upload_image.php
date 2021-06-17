@@ -12,7 +12,7 @@ $type = ucfirst(substr($_GET['type'], 0, -1)) ?? "";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 //code here
-    $name = $_GET['name'];
+    $name = str_replace('-', ' ', $_GET['name']);
     $obj = $type::where(["name = {$name}"])->get_single();
 
    if($obj){
