@@ -3,7 +3,8 @@
     class Consumable extends Model{
 
         static function fetch($name){
-            $name = str_replace('-', ' ', $name);
+            // $name = str_replace('-', ' ', $name);
+            $name = str_replace('%20', ' ', $name);
             $consumable = self::where(["name = {$name}"])->get_single();
 
             if(empty($consumable)) return false;

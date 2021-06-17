@@ -3,7 +3,8 @@
     class Artifact extends Model{
 
         static function fetch($name){
-            $name = str_replace('-', ' ', $name);
+            // $name = str_replace('-', ' ', $name);
+            $name = str_replace('%20', ' ', $name);
             $artifact = self::where(["name = {$name}"])->get_single();
 
             if(empty($artifact)) return false;

@@ -2,7 +2,8 @@
     class Character extends Model{
         use File;
         static function fetch($name){
-           $name = str_replace('-', ' ', $name);
+         //   $name = str_replace('-', ' ', $name);
+           $name = str_replace('%20', ' ', $name);
            $character = self::where(["name = {$name}"])->get_single();
 
            if(empty($character)) return false;
@@ -50,7 +51,7 @@
             $character->passiveTalents  = json_encode($input->passiveTalents ?? json_decode($character->passiveTalents));
             $character->constellations  = json_encode($input->constellations ?? json_decode($character->constellations));
 
-            return $character->update() ? $character->name : false;
+            return $character->update() ? "Character $character->name updated" : false;
          }
 
         public function image_path(){

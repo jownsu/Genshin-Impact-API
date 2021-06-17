@@ -4,7 +4,8 @@
         use File;
 
         static function fetch($name){
-            $name = str_replace('-', ' ', $name);
+            // $name = str_replace('-', ' ', $name);
+            $name = str_replace('%20', ' ', $name);
             $weapon = self::where(["name = {$name}"])->get_single();
 
             if(empty($weapon)) return false;
