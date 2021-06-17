@@ -14,15 +14,16 @@ $type = ucfirst(substr($_GET['type'], 0, -1)) ?? "";
 if($_SERVER['REQUEST_METHOD'] == 'PUT'){
         $input = json_decode(file_get_contents("php://input"));
 
-        $id = $input->id ?? null;
-        $data = $type::find($id);
+        // $id = $input->id ?? null;
+        $name = str_replace('-', ' ', $_GET['name']);
+        $data = $type::where(["name = $name"])->get_single();
 
         if(!empty($data)){
 
-            echo $type::edit($data, $input) ? json_encode(['message' => "{$type}" . " updated"]) : json_encode(['message' => "{$type}" . " not updated"]);
+            echo $type::edit($data, $input) ? json_encode(['message' => "$type $name updated"]) : json_encode(['message' => "$type $name not updated"]);
 
         }else{
-            echo json_encode(['message' => "{$type}" . " not found"]);
+            echo json_encode(['message' => "$type $name not found"]);
         }
 }else{
     echo json_encode(['message' => 'Not PUT Request']);

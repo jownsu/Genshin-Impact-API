@@ -49,7 +49,7 @@
             $character->passiveTalents  = json_encode($input->passiveTalents ?? json_decode($character->passiveTalents));
             $character->constellations  = json_encode($input->constellations ?? json_decode($character->constellations));
 
-            return $character->update() ? true : false;
+            return $character->update() ? $character->name : false;
          }
 
         public function image_path(){
