@@ -16,6 +16,7 @@
 
         static function add($data){
             if(empty($data) || empty($data->name)) return false;
+            if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
             $character = new Character();
 
             $character->name            = $data->name ?? "";
@@ -31,7 +32,7 @@
             $character->passiveTalents  = json_encode($data->passiveTalents ?? null);
             $character->constellations  = json_encode($data->constellations ?? null);
 
-            return $character->create() ? $character->name : false;
+            return $character->create() ? "Character $character->name added" : false;
         }
 
         static function edit($character, $input){

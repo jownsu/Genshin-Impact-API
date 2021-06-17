@@ -14,6 +14,7 @@
  
          static function add($data){
             if(empty($data) || empty($data->name)) return false;
+            if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
 
              $artifact = new Artifact();
 
@@ -21,7 +22,7 @@
                 $artifact->$key = $data->$key ?? "";
             }
  
-             return $artifact->create() ? $artifact->name : false;
+             return $artifact->create() ? "Artifact $artifact->name added" : false;
          }
 
          static function edit($artifact, $input){

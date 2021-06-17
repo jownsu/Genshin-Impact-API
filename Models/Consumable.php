@@ -14,6 +14,7 @@
  
          static function add($data){
             if(empty($data) || empty($data->name)) return false;
+            if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
 
              $consumable = new Consumable();
 
@@ -21,7 +22,7 @@
                 $consumable->$key = $data->$key ?? "";
             }
  
-             return $consumable->create() ? $consumable->name : false;
+             return $consumable->create() ? "Consumable $consumable->name added" : false;
          }
 
          static function edit($consumable, $input){

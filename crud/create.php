@@ -22,12 +22,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if(property_exists($data, "name") && !is_object($data->name)){
 
-                $message[] = ($name = $type::add($data)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
+                    $message[] = ($response = $type::add($data)) ? $response : $message[] = "{$type} not added";
                 
             }else{
                 foreach($data as $key => $val){
 
-                    $message[] = ($name = $type::add($val)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
+                    $message[] = ($response = $type::add($data)) ? $response : $message[] = "{$type} not added";
                 }
             }
         }
@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $data = json_decode(file_get_contents("php://input"));
 
     if(isset($data)){
-        $message[] = ($name = $type::add($data)) ? "{$type} " . $name . " added" : $message[] = "{$type} not added";
+        $message[] = ($response = $type::add($data)) ? $response : $message[] = "{$type} not added";
     }
 
 }else{

@@ -14,6 +14,7 @@
  
          static function add($data){
             if(empty($data) || empty($data->name)) return false;
+            if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
 
              $nation = new Nation();
 
@@ -21,7 +22,7 @@
                 $nation->$key = $data->$key ?? "";
             }
  
-             return $nation->create() ? $nation->name : false;
+             return $nation->create() ? "Nation $nation->name added" : false;
          }
 
          static function edit($nation, $input){

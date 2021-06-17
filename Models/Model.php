@@ -57,9 +57,14 @@ class Model{
         $where = array();
 
         foreach($sqlWhere as $val){
-            $arrVal = explode(" ", $val);
-            $where[] = "{$arrVal[0]} {$arrVal[1]} :OR{$arrVal[0]}";
-            self::$bind = array_merge(self::$bind, [":OR{$arrVal[0]}" => "{$arrVal[2]}"]);
+            
+            $arrVal        = explode(" ", $val);
+            $whereTable    = $arrVal[0];
+            $whereOperator = $arrVal[1];
+            $whereValue    = explode(" {$whereOperator} ", $val)[1];
+
+            $where[] = "{$whereTable} {$whereOperator} :OR{$whereTable}";
+            self::$bind = array_merge(self::$bind, [":OR{$whereTable}" => "{$whereValue}"]);
         }
 
         self::$sql .= " OR ( ". implode( " AND ", $where) . " ) ";    

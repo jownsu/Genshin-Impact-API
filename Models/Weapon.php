@@ -15,6 +15,7 @@
  
          static function add($data){
             if(empty($data) || empty($data->name)) return false;
+            if(self::where(["name = $data->name"])->get_single()) return "$data->name already exists";
 
              $weapon = new Weapon();
 
@@ -22,7 +23,7 @@
                 $weapon->$key = $data->$key ?? "";
             }
  
-             return $weapon->create() ? $weapon->name : false;
+             return $weapon->create() ? "Weapon $weapon->name added" : false;
          }
 
          static function edit($weapon, $input){
