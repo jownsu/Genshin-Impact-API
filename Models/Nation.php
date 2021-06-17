@@ -29,7 +29,7 @@
                 $nation->$key = $input->$key;
             }
 
-            return $nation->update() ? true : false;
+            return $nation->update() ? $nation->name : false;
          }
 
     }

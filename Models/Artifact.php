@@ -29,7 +29,7 @@
                 $artifact->$key = $input->$key;
             }
 
-            return $artifact->update() ? true : false;
+            return $artifact->update() ? $artifact->name : false;
          }
 
     }

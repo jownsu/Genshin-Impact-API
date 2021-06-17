@@ -29,7 +29,7 @@
                 $consumable->$key = $input->$key;
             }
 
-            return $consumable->update() ? true : false;
+            return $consumable->update() ? $consumable->name : false;
          }
 
     }
