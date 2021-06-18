@@ -16,23 +16,31 @@ header('Access-Control-Allow-Methods: DELETE');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods,Authorization,X-Requested-With');
 
 $type = ucfirst(substr($_GET['type'], 0, -1)) ?? "";
+$message = array();
 
 if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-        $input = json_decode(file_get_contents("php://input"));
-        $id = $input->id;
-        $data = $type::find($id);
+        // $input = json_decode(file_get_contents("php://input"));
+        // $id = $input->id;
+        // $data = $type::find($id);
+
+        $name = str_replace('%20', ' ', $_GET['name']);
+        $name = $_GET['name'];
+        $data = $type::where(["name = $name"])->get_single();
 
         if(!empty($data)){
 
             if($data->delete()){
-                echo json_encode(['message' => "{$type}" . " deleted"]);
+                $message[] = "$type $data->name deleted";
             }else{
-                echo json_encode(['message' => "{$type}" . " not deleted"]);
+                $message[] = "$type $data->name not deleted";
             }
 
         }else{
-            echo json_encode(['message' => "{$type}" . " not found"]);
+                $message[] = "$type $name not found";
         }
 }else{
-    echo json_encode(['message' => "Not DELETE Request"]);
+    $message[] = "Not DELETE Request";
+
 }
+
+echo json_encode(['message' => $message]);

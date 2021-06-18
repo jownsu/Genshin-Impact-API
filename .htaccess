@@ -11,7 +11,7 @@ RewriteRule ^consumables/*$ index.php?type=consumables [NC,L]
 
 RewriteRule ^(characters|weapons|artifacts|nations|consumables)/create$ crud/create.php?type=$1 [NC,L]
 RewriteRule ^(characters|weapons|artifacts|nations|consumables)/([a-zA-Z-'\s]+)/update/*$ crud/update.php?type=$1&name=$2 [NC,L]
-RewriteRule ^(characters|weapons|artifacts|nations|consumables)/delete$ crud/delete.php?type=$1 [NC,L]
+RewriteRule ^(characters|weapons|artifacts|nations|consumables)/([a-zA-Z-'\s]+)/delete/*$ crud/delete.php?type=$1&name=$2 [NC,L]
 
 RewriteRule ^(characters|weapons)/([a-zA-Z-']+)/(icon|portrait)$ image.php?type=$1&name=$2&img=$3 [NC,L]
 RewriteRule ^(characters|weapons|artifacts|nations|consumables)/([a-zA-Z-'\s]+)/*$ crud/read.php?type=$1&name=$2 [NC,L]

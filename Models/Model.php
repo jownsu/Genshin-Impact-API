@@ -141,7 +141,7 @@ class Model{
     }
 
     public function get_single(){
-        $result = self::find_query(self::$sql, self::$bind);
+        $result = self::find_query(self::$sql . " LIMIT 1", self::$bind);
         
         self::$sql = null;
         self::$bind = array();
