@@ -8,3 +8,6 @@
     require_once("Artifact.php");
     require_once("Nation.php");
     require_once("Consumable.php");
+
+    define('USER_AUTH', 'jownsu');
+    define('PASS_AUTH', 'jownsu');
